@@ -9,5 +9,6 @@ class Screens {
     }
 
     class RepositoryScreen(val repository: GithubRepository) : SupportAppScreen() {
+        override fun getFragment() = RepositoryFragment.newInstance(repository)
     }
 }
