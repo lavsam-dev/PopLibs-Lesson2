@@ -2,10 +2,14 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-parcelize'
+    id 'kotlin-android-extensions'
 }
 
 android {
+
+    buildFeatures {
+        viewBinding true
+    }
     compileSdk 31
 
     defaultConfig {
