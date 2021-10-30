@@ -1,14 +1,17 @@
 package lavsam.gb.libs.poplibs_lesson2
 
-import ru.terrakok.cicerone.android.support.SupportAppScreen
+import com.github.terrakok.cicerone.Screen
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 
-class Screens {
+class Screens : IScreens {
 
-    class RepositoriesScreen() : SupportAppScreen() {
-        override fun getFragment() = RepositoriesFragment.newInstance()
-    }
+    override fun RepositoriesScreen() = FragmentScreen { RepositoriesFragment.newInstance() }
 
-    class RepositoryScreen(val repository: GithubRepository) : SupportAppScreen() {
-        override fun getFragment() = RepositoryFragment.newInstance(repository)
-    }
+    override fun RepositoryScreen(repository: GithubUser) =
+        FragmentScreen { RepositoryFragment.newInstance(repository) }
+}
+
+interface IScreens {
+    fun RepositoriesScreen(): Screen
+    fun RepositoryScreen(user: GithubUser): Screen
 }

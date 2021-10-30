@@ -12,13 +12,13 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
-class RepositoryFragment(val repository: GithubRepository?) : MvpAppCompatFragment(),
+class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
     RepositoryView,
     BackButtonListener {
 
 
     companion object {
-        fun newInstance(repository: GithubRepository?) = RepositoryFragment(repository)
+        fun newInstance(repository: GithubUser?) = RepositoryFragment(repository)
     }
 
     @InjectPresenter
@@ -34,7 +34,7 @@ class RepositoryFragment(val repository: GithubRepository?) : MvpAppCompatFragme
 
     @ProvidePresenter
     fun providePresenterRepository() =
-        RepositoryPresenter(GithubRepository(repository!!.login), App.instance.getRouter())
+        RepositoryPresenter(GithubUser(repository!!.login), App.instance.getRouter())
 
     override fun renderData(login: String) {
         tv_login.text = login
@@ -45,32 +45,41 @@ class RepositoryFragment(val repository: GithubRepository?) : MvpAppCompatFragme
         val bitmap: Bitmap =
             when ((1..8).random()) {
                 1 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger01, null)
+                    resources, R.drawable.progger01, null
+                )
                         as BitmapDrawable).bitmap
                 2 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger02, null)
+                    resources, R.drawable.progger02, null
+                )
                         as BitmapDrawable).bitmap
                 3 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger03, null)
+                    resources, R.drawable.progger03, null
+                )
                         as BitmapDrawable).bitmap
                 4 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger04, null)
+                    resources, R.drawable.progger04, null
+                )
                         as BitmapDrawable).bitmap
                 5 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger05, null)
+                    resources, R.drawable.progger05, null
+                )
                         as BitmapDrawable).bitmap
                 6 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger06, null)
+                    resources, R.drawable.progger06, null
+                )
                         as BitmapDrawable).bitmap
                 7 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger07, null)
+                    resources, R.drawable.progger07, null
+                )
                         as BitmapDrawable).bitmap
                 8 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger08, null)
+                    resources, R.drawable.progger08, null
+                )
                         as BitmapDrawable).bitmap
 
                 else -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.empty01e, null)
+                    resources, R.drawable.empty01e, null
+                )
                         as BitmapDrawable).bitmap
             }
         return bitmap

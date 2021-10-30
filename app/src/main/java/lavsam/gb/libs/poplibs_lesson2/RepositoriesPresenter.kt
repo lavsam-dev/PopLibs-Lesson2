@@ -1,14 +1,18 @@
 package lavsam.gb.libs.poplibs_lesson2
 
+import com.github.terrakok.cicerone.Router
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import ru.terrakok.cicerone.Router
 
 @InjectViewState
-class RepositoriesPresenter(val repositoriesRepo: GithubRepositoriesRepo, val router: Router) : MvpPresenter<RepositoriesView>() {
+class RepositoriesPresenter(
+    val repositoriesRepo: GithubUsersRepo,
+    val router: Router,
+    val screens: IScreens
+) : MvpPresenter<RepositoriesView>() {
 
     class RepositoryListPresenter : IRepositoryListPresenter {
-        val repositories = mutableListOf<GithubRepository>()
+        val repositories = mutableListOf<GithubUser>()
         override var itemClickListener: ((RepositoryItemView) -> Unit)? = null
 
         override fun getCount() = repositories.size
@@ -29,20 +33,21 @@ class RepositoriesPresenter(val repositoriesRepo: GithubRepositoriesRepo, val ro
         repositoryListPresenter.itemClickListener = { itemView ->
             val repository = repositoryListPresenter.repositories[itemView.pos]
 
+            router.navigateTo(screens.RepositoryScreen(repository))
             //Практическое задание
-            router.replaceScreen(Screens.RepositoryScreen(repository))
+//            router.replaceScreen(Screens.RepositoryScreen(repository))
         }
     }
 
     private fun loadRepos() {
-        repositoriesRepo.getRepos().let { repos ->
+        repositoriesRepo.getUsers().let { repos ->
             repositoryListPresenter.repositories.clear()
             repositoryListPresenter.repositories.addAll(repos)
             viewState.updateList()
         }
     }
 
-    fun backClicked() : Boolean {
+    fun backClicked(): Boolean {
         router.exit()
         return true
     }

@@ -1,13 +1,12 @@
 package lavsam.gb.libs.poplibs_lesson2
 
+import com.github.terrakok.cicerone.Router
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import ru.terrakok.cicerone.Router
 
 @InjectViewState
-class RepositoryPresenter(val repository: GithubRepository,val router: Router) :
-    MvpPresenter<RepositoryView>(),IRepositoryRenderData
-{
+class RepositoryPresenter(val repository: GithubUser, val router: Router) :
+    MvpPresenter<RepositoryView>(), IRepositoryRenderData {
     override fun renderData() {
         viewState.renderData(repository.login)
     }
@@ -18,7 +17,7 @@ class RepositoryPresenter(val repository: GithubRepository,val router: Router) :
     }
 
     fun backClicked(): Boolean {
-        router.replaceScreen(Screens.RepositoriesScreen())
+        router.exit()
         return true
     }
 }

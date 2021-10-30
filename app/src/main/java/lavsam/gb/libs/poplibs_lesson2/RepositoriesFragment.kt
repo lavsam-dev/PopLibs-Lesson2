@@ -21,11 +21,16 @@ class RepositoriesFragment : MvpAppCompatFragment(), RepositoriesView, BackButto
 
     var adapter: RepositoriesRVAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) =
         View.inflate(context, R.layout.fragment_repositories, null)
 
     @ProvidePresenter
-    fun providePresenter() = RepositoriesPresenter(GithubRepositoriesRepo(), App.instance.getRouter())
+    fun providePresenter() =
+        RepositoriesPresenter(GithubUsersRepo(), App.instance.getRouter(), Screens())
 
     override fun init() {
         rv_repos.layoutManager = LinearLayoutManager(context)

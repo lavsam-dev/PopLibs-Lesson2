@@ -1,5 +1,5 @@
 package lavsam.gb.libs.poplibs_lesson2
 
-data class GithubRepository(
+data class GithubUser(
     val login: String
 )
