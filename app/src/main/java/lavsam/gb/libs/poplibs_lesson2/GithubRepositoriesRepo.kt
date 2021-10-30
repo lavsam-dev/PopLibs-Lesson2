@@ -5,5 +5,8 @@ class GithubRepositoriesRepo {
     private val repositories =
         (0..100).map { GithubRepository("login $it",) }
 
-    fun getRepos() = repositories
+//    fun getRepos() = repositories
+    fun getRepos(): List<GithubRepository> {
+        return repositories
+    }
 }
