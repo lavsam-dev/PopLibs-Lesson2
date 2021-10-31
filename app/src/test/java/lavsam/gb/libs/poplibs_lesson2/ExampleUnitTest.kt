@@ -27,11 +27,6 @@ class ExampleUnitTest {
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.newThread())
 
-            .doOnSubscribe {
-                githubUsersRepo.loadNextChunkWithUsers()
-                println("subscribe")
-            }
-
             .doOnNext { println(it) }
             .subscribe{
                 println(it)

@@ -20,26 +20,7 @@ class GithubUsersRepo {
 
     private val bs = BehaviorSubject.create<List<GithubUser>>()
 
-    fun getUsers2(): Observable<List<GithubUser>> = bs
-
-    fun loadNextChunkWithUsers() {
-        client
-            .newCall(Request.Builder().url("https://api.github.com/users").build())
-            .enqueue(object  : Callback{
-                override fun onFailure(call: Call, e: IOException) {
-                    println("Fail")
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    val s = response.body?.string()
-                    val list = JsonParser.parseString(s).asJsonArray.toList()
-                        .map { it.asJsonObject }
-                        .map { it["login"]}
-                        .map { GithubUser(it.asString)}
-                    bs.onNext(list)
-                }
-            })
-    }
+    fun getUsers2(): Observable<List<GithubUser>> = client.LoadUsers().toObservable()
 
     //    fun getUsers() = repositories
     fun getUsers(): List<GithubUser> {
@@ -47,7 +28,7 @@ class GithubUsersRepo {
         return repositories
     }
 
-    val client = OkHttpClient.Builder().build()
+    val client = RetrofitKeeper().api
     val gson = Gson()
 }
 
