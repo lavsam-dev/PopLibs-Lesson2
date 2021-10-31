@@ -1,6 +1,9 @@
 package lavsam.gb.libs.poplibs_lesson2
 
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 
@@ -10,6 +13,12 @@ class RepositoriesPresenter(
     val router: Router,
     val screens: IScreens
 ) : MvpPresenter<RepositoriesView>() {
+
+    private var disposable: Disposable? = null
+        set(value) {
+            field?.takeIf { !it.isDisposed }?.dispose()
+            field = value
+        }
 
     class RepositoryListPresenter : IRepositoryListPresenter {
         val repositories = mutableListOf<GithubUser>()
@@ -40,15 +49,29 @@ class RepositoriesPresenter(
     }
 
     private fun loadRepos() {
-        repositoriesRepo.getUsers().let { repos ->
-            repositoryListPresenter.repositories.clear()
-            repositoryListPresenter.repositories.addAll(repos)
-            viewState.updateList()
-        }
+        disposable = repositoriesRepo.getUsers2()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ repos ->
+                repositoryListPresenter.repositories.clear()
+                repositoryListPresenter.repositories.addAll(repos)
+                viewState.updateList()
+            })
+
+//        repositoriesRepo.getUsers().let { repos ->
+//            repositoryListPresenter.repositories.clear()
+//            repositoryListPresenter.repositories.addAll(repos)
+//            viewState.updateList()
+//        }
     }
 
     fun backClicked(): Boolean {
         router.exit()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable = null
     }
 }

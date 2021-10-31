@@ -8,7 +8,7 @@ import moxy.MvpPresenter
 class RepositoryPresenter(val repository: GithubUser, val router: Router) :
     MvpPresenter<RepositoryView>(), IRepositoryRenderData {
     override fun renderData() {
-        viewState.renderData(repository.login)
+        viewState.renderData(repository.login, repository.avatar_url)
     }
 
     override fun onFirstViewAttach() {

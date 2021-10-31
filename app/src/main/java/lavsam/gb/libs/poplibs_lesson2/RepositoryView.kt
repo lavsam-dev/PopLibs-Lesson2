@@ -6,5 +6,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface RepositoryView: MvpView {
-    fun renderData(login: String)
+    fun renderData(login: String, avatar: String)
 }
