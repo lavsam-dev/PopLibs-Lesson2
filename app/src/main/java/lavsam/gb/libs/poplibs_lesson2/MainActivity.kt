@@ -13,8 +13,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
-    var adapter: RepositoriesRVAdapter? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,7 +22,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     fun providePresenter() = MainPresenter(App.instance.getRouter(), Screens())
 
     override fun init() {
-
     }
 
     override fun onResumeFragments() {

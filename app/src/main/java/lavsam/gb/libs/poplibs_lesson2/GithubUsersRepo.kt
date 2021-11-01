@@ -8,21 +8,19 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
+const val GITHUB_URL = "https://api.github.com/"
+const val GITHUB_URL_ADDON = "users"
+
 class GithubUsersRepo {
 
-    private val repositories =
-        (0..100).map { GithubUser("login $it", "") }
-
     fun getUsers2(): Observable<List<GithubUser>> = client.LoadUsers().toObservable()
-
-    fun getUsers() = repositories
 
     val client = RetrofitKeeper().api
 }
 
 class RetrofitKeeper {
     private val gson = Gson()
-    val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
+    val retrofit = Retrofit.Builder().baseUrl(GITHUB_URL)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
@@ -31,6 +29,6 @@ class RetrofitKeeper {
 }
 
 interface GitHub {
-    @GET("users")
+    @GET(GITHUB_URL_ADDON)
     fun LoadUsers(): Single<List<GithubUser>>
 }

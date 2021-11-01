@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_repositories.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -26,8 +25,7 @@ class RepositoriesFragment : MvpAppCompatFragment(), RepositoriesView, BackButto
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) =
-        View.inflate(context, R.layout.fragment_repositories, null)
+    ) = View.inflate(context, R.layout.fragment_repositories, null)
 
     @ProvidePresenter
     fun providePresenter() =

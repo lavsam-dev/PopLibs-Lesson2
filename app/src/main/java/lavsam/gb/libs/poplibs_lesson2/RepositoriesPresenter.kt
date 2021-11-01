@@ -41,10 +41,7 @@ class RepositoriesPresenter(
 
         repositoryListPresenter.itemClickListener = { itemView ->
             val repository = repositoryListPresenter.repositories[itemView.pos]
-
             router.navigateTo(screens.RepositoryScreen(repository))
-            //Практическое задание
-//            router.replaceScreen(Screens.RepositoryScreen(repository))
         }
     }
 
@@ -57,12 +54,6 @@ class RepositoriesPresenter(
                 repositoryListPresenter.repositories.addAll(repos)
                 viewState.updateList()
             })
-
-//        repositoriesRepo.getUsers().let { repos ->
-//            repositoryListPresenter.repositories.clear()
-//            repositoryListPresenter.repositories.addAll(repos)
-//            viewState.updateList()
-//        }
     }
 
     fun backClicked(): Boolean {

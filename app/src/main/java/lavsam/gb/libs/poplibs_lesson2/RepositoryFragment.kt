@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_repositories.*
 import kotlinx.android.synthetic.main.fragment_repository.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
@@ -30,13 +29,15 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_repository, container, false)
     }
 
     @ProvidePresenter
     fun providePresenterRepository() =
-        RepositoryPresenter(GithubUser(repository!!.login, repository!!.avatar_url), App.instance.getRouter())
+        RepositoryPresenter(
+            GithubUser(repository!!.login, repository!!.avatar_url),
+            App.instance.getRouter()
+        )
 
     override fun renderData(login: String, avatar: String) {
         tv_login.text = login
@@ -47,7 +48,6 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
                 .placeholder(R.drawable.progger00_400)
                 .into(this)
         }
-//        iv_Avatar.setImageBitmap(getAvatar())
     }
 
     private fun getAvatar(): Bitmap {
