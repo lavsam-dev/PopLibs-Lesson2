@@ -1,20 +1,17 @@
 package lavsam.gb.libs.poplibs_lesson2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val navigator = SupportAppNavigator(this, R.id.container)
+    val navigator = AppNavigator(this, R.id.container)
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
-
-    var adapter: RepositoriesRVAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +19,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     @ProvidePresenter
-    fun providePresenter() = MainPresenter(App.instance.getRouter())
+    fun providePresenter() = MainPresenter(App.instance.getRouter(), Screens())
 
     override fun init() {
-
     }
 
     override fun onResumeFragments() {
@@ -40,7 +36,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
-            if(it is BackButtonListener && it.backClicked()){
+            if (it is BackButtonListener && it.backClicked()) {
                 return
             }
         }

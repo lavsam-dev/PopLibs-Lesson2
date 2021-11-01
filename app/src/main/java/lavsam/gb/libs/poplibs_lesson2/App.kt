@@ -1,8 +1,8 @@
 package lavsam.gb.libs.poplibs_lesson2
 
 import android.app.Application
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.Router
 
 class App : Application() {
     companion object {
@@ -19,6 +19,6 @@ class App : Application() {
     }
 
 
-    fun getNavigatorHolder() = cicerone.navigatorHolder
+    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
     fun getRouter() = cicerone.router
 }
