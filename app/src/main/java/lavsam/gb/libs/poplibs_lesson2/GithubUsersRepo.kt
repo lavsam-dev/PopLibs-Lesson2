@@ -15,9 +15,6 @@ class GithubUsersRepo {
     private val client = RetrofitKeeper().api
     private val bs = BehaviorSubject.create<Unit>()
 
-    fun getUsers2(): Observable<List<GithubUser>> = client.loadUsers().toObservable()
-
-
     fun subscribeOnGithubUsersData(): Observable<List<GithubUser>> {
         return bs
             .observeOn(Schedulers.io())
@@ -43,7 +40,13 @@ class GithubUsersRepo {
     }
 
     private fun List<User>.mapToUser(): List<GithubUser> {
-        return this.map { GithubUser(login = it.firstName.orEmpty(), avatar_url = it.avatarUrl.orEmpty(), id = it.uid) }
+        return this.map {
+            GithubUser(
+                login = it.firstName.orEmpty(),
+                avatar_url = it.avatarUrl.orEmpty(),
+                id = it.uid
+            )
+        }
     }
 
     private fun saveUsersToDB(list: List<GithubUser>) {

@@ -8,6 +8,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 
+const val POP_LIBS = "POP_LIBS"
+
 @InjectViewState
 class RepositoriesPresenter(
     val repositoriesRepo: GithubUsersRepo,
@@ -15,17 +17,9 @@ class RepositoriesPresenter(
     val screens: IScreens
 ) : MvpPresenter<RepositoriesView>() {
 
-//    private var disposable: Disposable? = null
-//        set(value) {
-//            field?.takeIf { !it.isDisposed }?.dispose()
-//            field = value
-//        }
-
-
-
     class RepositoryListPresenter : IRepositoryListPresenter {
 
-        val repositories = (1..20).map { GithubUser( "login $it", "", 0) }.toMutableList()
+        val repositories = (1..20).map { GithubUser("login $it", "", 0) }.toMutableList()
 
         override var itemClickListener: ((RepositoryItemView) -> Unit)? = null
 
@@ -46,13 +40,12 @@ class RepositoriesPresenter(
             repositoryListPresenter.repositories.addAll(repos)
             viewState.updateList()
         }, {
-            Log.e("GB_LIBS", it.message, it)
+            Log.e(POP_LIBS, it.message, it)
         })
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-//        loadRepos()
         repositoriesRepo.loadUserData()
 
         repositoryListPresenter.itemClickListener = { itemView ->
@@ -61,17 +54,6 @@ class RepositoriesPresenter(
         }
     }
 
-//    private fun loadRepos() {
-//        disposable = repositoriesRepo.getUsers2()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ repos ->
-//                repositoryListPresenter.repositories.clear()
-//                repositoryListPresenter.repositories.addAll(repos)
-//                viewState.updateList()
-//            })
-//    }
-
     fun backClicked(): Boolean {
         router.exit()
         return true
@@ -79,7 +61,6 @@ class RepositoriesPresenter(
 
     override fun onDestroy() {
         super.onDestroy()
-//        disposable = null
         disposable.dispose()
     }
 }

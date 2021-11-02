@@ -8,4 +8,4 @@ data class GithubUser(
     val login: String,
     val avatar_url: String,
     val id: Int
-) :Parcelable
+) : Parcelable

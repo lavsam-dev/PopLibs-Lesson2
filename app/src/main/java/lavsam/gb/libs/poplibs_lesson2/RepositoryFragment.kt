@@ -1,12 +1,9 @@
 package lavsam.gb.libs.poplibs_lesson2
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_repository.*
 import moxy.MvpAppCompatFragment
@@ -47,50 +44,6 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
                 .placeholder(R.drawable.progger00_400)
                 .into(this)
         }
-    }
-
-    private fun getAvatar(): Bitmap {
-        val bitmap: Bitmap =
-            when ((1..8).random()) {
-                1 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger01, null
-                )
-                        as BitmapDrawable).bitmap
-                2 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger02, null
-                )
-                        as BitmapDrawable).bitmap
-                3 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger03, null
-                )
-                        as BitmapDrawable).bitmap
-                4 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger04, null
-                )
-                        as BitmapDrawable).bitmap
-                5 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger05, null
-                )
-                        as BitmapDrawable).bitmap
-                6 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger06, null
-                )
-                        as BitmapDrawable).bitmap
-                7 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger07, null
-                )
-                        as BitmapDrawable).bitmap
-                8 -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.progger08, null
-                )
-                        as BitmapDrawable).bitmap
-
-                else -> (ResourcesCompat.getDrawable(
-                    resources, R.drawable.empty01e, null
-                )
-                        as BitmapDrawable).bitmap
-            }
-        return bitmap
     }
 
     override fun backClicked() = presenter.backClicked()
