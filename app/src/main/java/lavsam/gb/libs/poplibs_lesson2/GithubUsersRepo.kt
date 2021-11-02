@@ -14,21 +14,6 @@ const val GITHUB_URL_ADDON = "users"
 class GithubUsersRepo {
 
     fun getUsers2(): Observable<List<GithubUser>> = client.LoadUsers().toObservable()
-
     val client = RetrofitKeeper().api
 }
 
-class RetrofitKeeper {
-    private val gson = Gson()
-    val retrofit = Retrofit.Builder().baseUrl(GITHUB_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-
-    val api = retrofit.create(GitHub::class.java)
-}
-
-interface GitHub {
-    @GET(GITHUB_URL_ADDON)
-    fun LoadUsers(): Single<List<GithubUser>>
-}

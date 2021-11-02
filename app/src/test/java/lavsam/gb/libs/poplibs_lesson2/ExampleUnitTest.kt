@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+const val TIMER_SLEEP = 20000 as Long
+
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
@@ -32,7 +34,6 @@ class ExampleUnitTest {
                 println(it)
             }
 
-        Thread.sleep(20000)
-
+        Thread.sleep(TIMER_SLEEP)
     }
 }
