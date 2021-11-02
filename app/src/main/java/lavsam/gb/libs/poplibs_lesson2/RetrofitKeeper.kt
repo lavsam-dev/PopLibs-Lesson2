@@ -2,6 +2,7 @@ package lavsam.gb.libs.poplibs_lesson2
 
 import com.google.gson.Gson
 import io.reactivex.rxjava3.core.Single
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,6 +12,10 @@ class RetrofitKeeper {
     private val gson = Gson()
 
     val retrofit = Retrofit.Builder().baseUrl(GITHUB_URL)
+        .client(
+            OkHttpClient.Builder()
+                .build()
+        )
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
@@ -20,5 +25,5 @@ class RetrofitKeeper {
 
 interface GitHub {
     @GET(GITHUB_URL_ADDON)
-    fun LoadUsers(): Single<List<GithubUser>>
+    fun loadUsers(): Single<List<GithubUser>>
 }

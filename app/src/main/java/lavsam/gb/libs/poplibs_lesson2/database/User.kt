@@ -6,7 +6,6 @@ import androidx.room.*
 data class User(
     @PrimaryKey val uid: Int,
     @ColumnInfo(name = "first_name") val firstName: String?,
-    @ColumnInfo(name = "last_name") val lastName: String?,
     @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
     @ColumnInfo(name = "age") val age: Int = 0,
 )
@@ -33,6 +32,7 @@ interface UserDao {
     ],
     version = 1
 )
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 }

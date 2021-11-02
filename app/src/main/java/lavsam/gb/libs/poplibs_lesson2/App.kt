@@ -1,9 +1,12 @@
 package lavsam.gb.libs.poplibs_lesson2
 
 import android.app.Application
+import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import lavsam.gb.libs.poplibs_lesson2.database.AppDatabase
+
+const val DB_NAME = "github-users.db"
 
 class App : Application() {
     companion object {
@@ -14,10 +17,11 @@ class App : Application() {
         Cicerone.create()
     }
 
-//    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
-//    fun getRouter() = cicerone.router
-    val router get() = cicerone.router
+    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
+
+    //    val navigatorHolder get() = cicerone.getNavigatorHolder()
+    fun getRouter() = cicerone.router
+    //    val router get() = cicerone.router
     val repository = GithubUsersRepo()
     private lateinit var db: AppDatabase
 
@@ -28,5 +32,11 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        db = Room.databaseBuilder(
+            this,
+            AppDatabase::class.java,
+            DB_NAME
+        )
+            .build()
     }
 }

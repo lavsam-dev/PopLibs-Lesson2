@@ -1,5 +1,6 @@
 package lavsam.gb.libs.poplibs_lesson2
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -14,14 +15,18 @@ class RepositoriesPresenter(
     val screens: IScreens
 ) : MvpPresenter<RepositoriesView>() {
 
-    private var disposable: Disposable? = null
-        set(value) {
-            field?.takeIf { !it.isDisposed }?.dispose()
-            field = value
-        }
+//    private var disposable: Disposable? = null
+//        set(value) {
+//            field?.takeIf { !it.isDisposed }?.dispose()
+//            field = value
+//        }
+
+
 
     class RepositoryListPresenter : IRepositoryListPresenter {
-        val repositories = mutableListOf<GithubUser>()
+
+        val repositories = (1..20).map { GithubUser( "login $it", "", 0) }.toMutableList()
+
         override var itemClickListener: ((RepositoryItemView) -> Unit)? = null
 
         override fun getCount() = repositories.size
@@ -34,10 +39,21 @@ class RepositoriesPresenter(
 
     val repositoryListPresenter = RepositoryListPresenter()
 
+    private val disposable = repositoriesRepo.subscribeOnGithubUsersData()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ repos ->
+            repositoryListPresenter.repositories.clear()
+            repositoryListPresenter.repositories.addAll(repos)
+            viewState.updateList()
+        }, {
+            Log.e("GB_LIBS", it.message, it)
+        })
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-        loadRepos()
+//        loadRepos()
+        repositoriesRepo.loadUserData()
 
         repositoryListPresenter.itemClickListener = { itemView ->
             val repository = repositoryListPresenter.repositories[itemView.pos]
@@ -45,16 +61,16 @@ class RepositoriesPresenter(
         }
     }
 
-    private fun loadRepos() {
-        disposable = repositoriesRepo.getUsers2()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ repos ->
-                repositoryListPresenter.repositories.clear()
-                repositoryListPresenter.repositories.addAll(repos)
-                viewState.updateList()
-            })
-    }
+//    private fun loadRepos() {
+//        disposable = repositoriesRepo.getUsers2()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ repos ->
+//                repositoryListPresenter.repositories.clear()
+//                repositoryListPresenter.repositories.addAll(repos)
+//                viewState.updateList()
+//            })
+//    }
 
     fun backClicked(): Boolean {
         router.exit()
@@ -63,6 +79,7 @@ class RepositoriesPresenter(
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable = null
+//        disposable = null
+        disposable.dispose()
     }
 }

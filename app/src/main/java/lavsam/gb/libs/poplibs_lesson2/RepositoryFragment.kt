@@ -17,7 +17,6 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
     RepositoryView,
     BackButtonListener {
 
-
     companion object {
         fun newInstance(repository: GithubUser?) = RepositoryFragment(repository)
     }
@@ -35,7 +34,7 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
     @ProvidePresenter
     fun providePresenterRepository() =
         RepositoryPresenter(
-            GithubUser(repository!!.login, repository!!.avatar_url),
+            GithubUser(repository!!.login, repository!!.avatar_url, repository!!.id),
             App.instance.getRouter()
         )
 
