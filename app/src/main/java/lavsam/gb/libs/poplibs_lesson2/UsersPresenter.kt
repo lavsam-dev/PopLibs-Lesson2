@@ -17,7 +17,7 @@ class UsersPresenter(
 
     class RepositoryListPresenter : IRepositoryListPresenter {
 
-        val users = (1..20).map { GithubUser("login $it", "", 0) }.toMutableList()
+        val users = (1..20).map { GithubUser("Llogin $it", "", 0) }.toMutableList()
 
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 

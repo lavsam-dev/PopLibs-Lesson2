@@ -1,5 +1,6 @@
 package lavsam.gb.libs.poplibs_lesson2
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,12 @@ class UsersRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerView.Ada
         override var pos = -1
 
         override fun setTitle(text: String) = with(containerView) {
-            tv_title.text = text
+            when (text.substring(0, 1)) {
+                "W" -> tv_room_web.setBackgroundColor(Color.parseColor("#43A047"))
+                "R" -> tv_room_web.setBackgroundColor(Color.parseColor("#B10404"))
+                "L" -> tv_room_web.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            }
+            tv_title.text = text.substring(1)
         }
     }
 }
