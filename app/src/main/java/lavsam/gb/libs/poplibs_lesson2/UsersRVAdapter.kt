@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class RepositoriesRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerView.Adapter<RepositoriesRVAdapter.ViewHolder>() {
+class UsersRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false))
@@ -21,7 +21,7 @@ class RepositoriesRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerV
     }
 
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-        LayoutContainer, RepositoryItemView {
+        LayoutContainer, UserItemView {
         override var pos = -1
 
         override fun setTitle(text: String) = with(containerView) {

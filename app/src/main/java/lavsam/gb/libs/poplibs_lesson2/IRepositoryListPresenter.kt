@@ -1,7 +1,7 @@
 package lavsam.gb.libs.poplibs_lesson2
 
 interface IRepositoryListPresenter {
-    var itemClickListener: ((RepositoryItemView) -> Unit)?
+    var itemClickListener: ((UserItemView) -> Unit)?
     fun getCount(): Int
-    fun bindView(view: RepositoryItemView)
+    fun bindView(view: UserItemView)
 }

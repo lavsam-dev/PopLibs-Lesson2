@@ -19,7 +19,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     @ProvidePresenter
-    fun providePresenter() = MainPresenter(App.instance.getRouter(), Screens())
+    fun providePresenter() = MainPresenter(App.instance.getRouter(), AndroidScreens())
 
     override fun init() {
     }

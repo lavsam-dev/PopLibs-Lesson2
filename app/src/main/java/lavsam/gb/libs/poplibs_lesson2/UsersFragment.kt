@@ -10,16 +10,16 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
-class RepositoriesFragment : MvpAppCompatFragment(), RepositoriesView, BackButtonListener {
+class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     companion object {
-        fun newInstance() = RepositoriesFragment()
+        fun newInstance() = UsersFragment()
     }
 
     @InjectPresenter
-    lateinit var presenter: RepositoriesPresenter
+    lateinit var presenter: UsersPresenter
 
-    var adapter: RepositoriesRVAdapter? = null
+    var adapter: UsersRVAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,11 +29,11 @@ class RepositoriesFragment : MvpAppCompatFragment(), RepositoriesView, BackButto
 
     @ProvidePresenter
     fun providePresenter() =
-        RepositoriesPresenter(GithubUsersRepo(), App.instance.getRouter(), Screens())
+        UsersPresenter(GithubUsersRepo(), App.instance.getRouter(), AndroidScreens())
 
     override fun init() {
         rv_repos.layoutManager = LinearLayoutManager(context)
-        adapter = RepositoriesRVAdapter(presenter.repositoryListPresenter)
+        adapter = UsersRVAdapter(presenter.usersListPresenter)
         rv_repos.adapter = adapter
     }
 

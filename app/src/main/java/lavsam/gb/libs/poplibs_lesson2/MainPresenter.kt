@@ -13,7 +13,7 @@ class MainPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-        router.replaceScreen(screens.RepositoriesScreen())
+        router.replaceScreen(screens.users())
     }
 
     fun backClicked() {

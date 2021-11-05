@@ -1,6 +1,6 @@
 package lavsam.gb.libs.poplibs_lesson2
 
-interface RepositoryItemView {
+interface UserItemView {
     var pos: Int
 
     fun setTitle(text: String)
