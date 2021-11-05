@@ -19,7 +19,7 @@ class App : Application() {
 
     fun getNavigatorHolder() = cicerone.getNavigatorHolder()
 
-    fun getRouter() = cicerone.router
+    val router get() = cicerone.router
 
     val repository = GithubUsersRepo()
     private lateinit var db: AppDatabase

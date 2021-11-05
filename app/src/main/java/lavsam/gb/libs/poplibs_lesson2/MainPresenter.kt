@@ -1,19 +1,17 @@
 package lavsam.gb.libs.poplibs_lesson2
 
 import com.github.terrakok.cicerone.Router
-import moxy.InjectViewState
 import moxy.MvpPresenter
 
-@InjectViewState
 class MainPresenter(
     val router: Router,
-    val screens: IScreens
+    val screen: IScreens
 ) : MvpPresenter<MainView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-        router.replaceScreen(screens.users())
+        router.replaceScreen(screen.users())
     }
 
     fun backClicked() {

@@ -3,15 +3,14 @@ package lavsam.gb.libs.poplibs_lesson2
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
-import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     val navigator = AppNavigator(this, R.id.container)
 
-    @InjectPresenter
     lateinit var presenter: MainPresenter
+//    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +18,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     @ProvidePresenter
-    fun providePresenter() = MainPresenter(App.instance.getRouter(), AndroidScreens())
+    fun providePresenter() = MainPresenter(App.instance.router, AndroidScreens())
 
     override fun init() {
     }

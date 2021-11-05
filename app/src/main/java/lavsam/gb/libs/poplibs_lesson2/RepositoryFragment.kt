@@ -32,7 +32,7 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
     fun providePresenterRepository() =
         RepositoryPresenter(
             GithubUser(repository!!.login, repository!!.avatar_url, repository!!.id),
-            App.instance.getRouter()
+            App.instance.router
         )
 
     override fun renderData(login: String, avatar: String) {
