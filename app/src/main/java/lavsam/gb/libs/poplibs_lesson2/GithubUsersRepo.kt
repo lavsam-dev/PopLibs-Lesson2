@@ -21,7 +21,7 @@ class GithubUsersRepo {
             .switchMap {
                 Observable.combineLatest(
                     Observable.just(db.getAll().mapToUser()),
-                    client.loadUsers().onErrorReturn { listOf() }.toObservable(),
+                    client.loadUsers().onErrorReturn { listOf(GithubUser("no data", "", 0)) }.toObservable(),
                     { fromDatabase, fromNetwork ->
                         if (fromNetwork.isEmpty()) {
                             return@combineLatest fromDatabase
@@ -42,7 +42,7 @@ class GithubUsersRepo {
     private fun List<User>.mapToUser(): List<GithubUser> {
         return this.map {
             GithubUser(
-                login = it.firstName.orEmpty(),
+                login = it.firstName.orEmpty() + " <--Room",
                 avatar_url = it.avatarUrl.orEmpty(),
                 id = it.uid
             )
