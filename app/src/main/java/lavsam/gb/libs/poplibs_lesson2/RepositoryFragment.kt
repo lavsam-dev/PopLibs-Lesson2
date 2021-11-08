@@ -18,9 +18,6 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
         fun newInstance(repository: GithubUser?) = RepositoryFragment(repository)
     }
 
-//    @InjectPresenter
-//    lateinit var presenter: RepositoryPresenter
-
     val presenter by moxyPresenter {
         RepositoryPresenter(
             GithubUser(
@@ -32,14 +29,6 @@ class RepositoryFragment(val repository: GithubUser?) : MvpAppCompatFragment(),
             App.instance.appComponent.inject(this)
         }
     }
-
-//@ProvidePresenter
-//fun providePresenterRepository() =
-//    RepositoryPresenter(
-//        GithubUser(repository!!.login, repository!!.avatar_url, repository!!.id),
-//        App.instance.router
-//    )
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

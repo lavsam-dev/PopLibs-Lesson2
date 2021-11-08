@@ -20,9 +20,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val presenter by moxyPresenter {
         MainPresenter().apply { App.instance.appComponent.inject(this) }
     }
-//    @InjectPresenter
-//    lateinit var presenter: MainPresenter
-//    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +27,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(vb?.root)
         App.instance.appComponent.inject(this)
     }
-
-//    @ProvidePresenter
-//    fun providePresenter() = MainPresenter(App.instance.router, AndroidScreens())
-//
 
     override fun onResumeFragments() {
         super.onResumeFragments()

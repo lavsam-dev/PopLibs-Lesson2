@@ -15,15 +15,7 @@ class App : Application() {
     }
 
     lateinit var appComponent: AppComponent
-//    val cicerone: Cicerone<Router> by lazy {
-//        Cicerone.create()
-//    }
 
-//    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
-
-//    val router get() = cicerone.router
-
-    val repository = GithubUsersRepo()
     private lateinit var db: AppDatabase
 
     fun getDB(): AppDatabase {
