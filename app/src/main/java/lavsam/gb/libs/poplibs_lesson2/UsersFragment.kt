@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.terrakok.cicerone.Router
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
@@ -15,8 +17,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         fun newInstance() = UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(App.instance.repository, App.instance.router, AndroidScreens())
+    @Inject
+    lateinit var router: Router
+
+    val presenter by moxyPresenter {
+        UsersPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     var adapter: UsersRVAdapter? = null
@@ -26,10 +33,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = View.inflate(context, R.layout.fragment_users, null)
-
-//    @ProvidePresenter
-    fun providePresenter() =
-        UsersPresenter(GithubUsersRepo(), App.instance.router, AndroidScreens())
 
     override fun init() {
         rv_repos.layoutManager = LinearLayoutManager(context)

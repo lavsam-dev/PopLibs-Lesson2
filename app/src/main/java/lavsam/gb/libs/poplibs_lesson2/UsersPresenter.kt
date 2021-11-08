@@ -5,15 +5,18 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import javax.inject.Inject
 
 const val POP_LIBS = "POP_LIBS"
 
-@InjectViewState
-class UsersPresenter(
-    val usersRepo: GithubUsersRepo,
-    val router: Router,
-    val screens: IScreens
-) : MvpPresenter<UsersView>() {
+class UsersPresenter() : MvpPresenter<UsersView>() {
+
+    @Inject
+    lateinit var usersRepo: GithubUsersRepo
+    @Inject
+    lateinit var router: Router
+    @Inject
+    lateinit var screens: IScreens
 
     class RepositoryListPresenter : IRepositoryListPresenter {
 
@@ -43,7 +46,6 @@ class UsersPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.init()
         usersRepo.loadUserData()
 
         usersListPresenter.itemClickListener = { itemView ->

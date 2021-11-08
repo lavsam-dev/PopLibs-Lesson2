@@ -3,9 +3,9 @@ package lavsam.gb.libs.poplibs_lesson2
 import android.os.Bundle
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import lavsam.gb.libs.poplibs_lesson2.databinding.ActivityMainBinding
 import moxy.MvpAppCompatActivity
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
+import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
@@ -15,20 +15,25 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     val navigator = AppNavigator(this, R.id.container)
 
-    @InjectPresenter
-    lateinit var presenter: MainPresenter
+    private var vb: ActivityMainBinding? = null
+
+    private val presenter by moxyPresenter {
+        MainPresenter().apply { App.instance.appComponent.inject(this) }
+    }
+//    @InjectPresenter
+//    lateinit var presenter: MainPresenter
 //    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        vb = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(vb?.root)
+        App.instance.appComponent.inject(this)
     }
 
-    @ProvidePresenter
-    fun providePresenter() = MainPresenter(App.instance.router, AndroidScreens())
-
-    override fun init() {
-    }
+//    @ProvidePresenter
+//    fun providePresenter() = MainPresenter(App.instance.router, AndroidScreens())
+//
 
     override fun onResumeFragments() {
         super.onResumeFragments()
