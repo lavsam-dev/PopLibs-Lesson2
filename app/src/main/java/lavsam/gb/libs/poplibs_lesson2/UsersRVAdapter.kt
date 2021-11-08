@@ -1,13 +1,18 @@
 package lavsam.gb.libs.poplibs_lesson2
 
+import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class RepositoriesRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerView.Adapter<RepositoriesRVAdapter.ViewHolder>() {
+class UsersRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false))
@@ -21,11 +26,17 @@ class RepositoriesRVAdapter(val presenter: IRepositoryListPresenter) : RecyclerV
     }
 
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-        LayoutContainer, RepositoryItemView {
+        LayoutContainer, UserItemView {
         override var pos = -1
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun setTitle(text: String) = with(containerView) {
-            tv_title.text = text
+            when (text.substring(0, 1)) {
+                "W" -> tv_room_web.setBackgroundColor(getColor(context, R.color.colorFromWeb))
+                "R" -> tv_room_web.setBackgroundColor(getColor(context, R.color.colorFromRoom))
+                "L" -> tv_room_web.setBackgroundColor(getColor(context, R.color.colorFromLocal))
+            }
+            tv_title.text = text.substring(1)
         }
     }
 }

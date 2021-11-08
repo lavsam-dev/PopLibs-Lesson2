@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import lavsam.gb.libs.poplibs_lesson2.database.AppDatabase
+import lavsam.gb.libs.poplibs_lesson2.di.AppComponent
 
 const val DB_NAME = "github-users.db"
 
@@ -13,13 +14,8 @@ class App : Application() {
         lateinit var instance: App
     }
 
-    val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
+    lateinit var appComponent: AppComponent
 
-    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
-
-    fun getRouter() = cicerone.router
     private lateinit var db: AppDatabase
 
     fun getDB(): AppDatabase {

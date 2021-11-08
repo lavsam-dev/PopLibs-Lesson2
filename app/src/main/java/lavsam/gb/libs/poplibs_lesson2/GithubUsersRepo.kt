@@ -21,14 +21,15 @@ class GithubUsersRepo {
             .switchMap {
                 Observable.combineLatest(
                     Observable.just(db.getAll().mapToUser()),
-                    client.loadUsers().onErrorReturn { listOf() }.toObservable(),
+                    client.loadUsers()
+                        .onErrorReturn { listOf() }.toObservable(),
                     { fromDatabase, fromNetwork ->
                         if (fromNetwork.isEmpty()) {
                             return@combineLatest fromDatabase
                         } else {
                             db.deleteAll()
                             saveUsersToDB(fromNetwork)
-                            fromNetwork
+                            fromNetwork.mapToUserWeb()
                         }
                     }
                 )
@@ -42,9 +43,19 @@ class GithubUsersRepo {
     private fun List<User>.mapToUser(): List<GithubUser> {
         return this.map {
             GithubUser(
-                login = it.firstName.orEmpty(),
+                login = "R" + it.firstName.orEmpty(),
                 avatar_url = it.avatarUrl.orEmpty(),
                 id = it.uid
+            )
+        }
+    }
+
+    private fun List<GithubUser>.mapToUserWeb(): List<GithubUser> {
+        return this.map {
+            GithubUser(
+                login = "W" + it.login.orEmpty(),
+                avatar_url = it.avatar_url.orEmpty(),
+                id = it.id
             )
         }
     }

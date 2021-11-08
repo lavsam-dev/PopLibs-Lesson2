@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_room_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_web"
+        />
+
+    <View
+        android:id="@+id/tv_room_web"
+        android:textColor="#000000"
+        android:background="#B10404"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintStart_toEndOf="@id/iv_room_web"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        android:layout_marginStart="@dimen/margin_16dp"
+        />
 
     <TextView
         android:id="@+id/tv_title"
@@ -15,8 +33,10 @@
         android:textColor="@color/colorPrimaryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tv_room_web"
+        app:layout_constraintTop_toTopOf="parent"
         android:textSize="@dimen/text_size"
         android:layout_marginStart="@dimen/margin_16dp"
         />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
