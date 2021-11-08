@@ -1,12 +1,17 @@
 package lavsam.gb.libs.poplibs_lesson2
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
+
+    @Inject
+    lateinit var navigationHolder: NavigatorHolder
 
     val navigator = AppNavigator(this, R.id.container)
 
@@ -27,12 +32,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.instance.getNavigatorHolder().setNavigator(navigator)
+        navigationHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.instance.getNavigatorHolder().removeNavigator()
+        navigationHolder.removeNavigator()
     }
 
     override fun onBackPressed() {

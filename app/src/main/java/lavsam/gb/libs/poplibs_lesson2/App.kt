@@ -17,7 +17,7 @@ class App : Application() {
         Cicerone.create()
     }
 
-    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
+//    fun getNavigatorHolder() = cicerone.getNavigatorHolder()
 
     val router get() = cicerone.router
 
